@@ -1,8 +1,7 @@
 # Tool to extract sentences & words from a file.
 
 from sys import argv
-import parser
-
+import parsing
 
 def get_sentences(file_name):
     # Extract sentences from a text file.
@@ -10,17 +9,17 @@ def get_sentences(file_name):
     sentences = reader.read()
     reader.close()
     sentences = sentences.replace("\n", "")
-    sentences = parser.convert_abbreviations(sentences)
+    sentences = parsing.convert_abbreviations(sentences)
     sentences = sentences.replace("?", ".")
     sentences = sentences.replace("!", ".")
     sentences = sentences.split(".")
-    sentences = parser.fix_broken_sentences(sentences)
-    sentences = parser.remove_whitespace_list(sentences)
-    sentences = parser.remove_blanks(sentences)
-    sentences = parser.add_periods(sentences)
-    sentences = parser.clean_up_quotes(sentences)
-    sentences = parser.group_quotes(sentences)
-    sentences = parser.comma_handler(sentences)
+    sentences = parsing.fix_broken_sentences(sentences)
+    sentences = parsing.remove_whitespace_list(sentences)
+    sentences = parsing.remove_blanks(sentences)
+    sentences = parsing.add_periods(sentences)
+    sentences = parsing.clean_up_quotes(sentences)
+    sentences = parsing.group_quotes(sentences)
+    sentences = parsing.comma_handler(sentences)
     return sentences
 
 
@@ -31,11 +30,11 @@ def get_words(file_name):
     words = reader.read()
     reader.close()
     words = words.replace("\n", " ")
-    words = parser.convert_abbreviations(words)
+    words = parsing.convert_abbreviations(words)
     words = words.split(" ")
-    words = parser.remove_blanks(words)
+    words = parsing.remove_blanks(words)
     for i in range(0, len(words)):
-        words[i] = parser.clean(words[i])
+        words[i] = parsing.clean(words[i])
     return words
 
 
